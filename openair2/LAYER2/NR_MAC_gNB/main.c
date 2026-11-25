@@ -372,6 +372,7 @@ void mac_top_destroy_gNB(gNB_MAC_INST *mac)
     nr_mac_pcch_queue_free(cc);
     ASN_STRUCT_FREE(asn_DEF_NR_BCCH_BCH_Message, cc->mib);
     ASN_STRUCT_FREE(asn_DEF_NR_BCCH_DL_SCH_Message, cc->sib1);
+    ASN_STRUCT_FREE(asn_DEF_NR_SystemInformation_IEs, cc->sib9_si);
     ASN_STRUCT_FREE(asn_DEF_NR_ServingCellConfigCommon, cc->ServingCellConfigCommon);
 #ifdef E3_AGENT
     e3_spectrum_mac_detach_cell(cell);
