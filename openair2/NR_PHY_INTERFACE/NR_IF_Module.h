@@ -88,10 +88,15 @@ typedef struct {
   nfapi_nr_config_request_scf_t *cfg;
 } NR_PHY_Config_t;
 
+typedef struct {
+  frame_t rx_frame, tx_frame;
+  slot_t rx_slot, tx_slot;
+} nr_slot_time_t;
+
 typedef struct NR_IF_Module_s {
   //define the function pointer
   void (*NR_UL_indication)(NR_UL_IND_t *UL_INFO);
-  void (*NR_slot_indication)(const nfapi_nr_slot_indication_scf_t *ind, NR_Sched_Rsp_t *rsp);
+  void (*NR_slot_indication)(const nfapi_nr_slot_indication_scf_t *ind, const nr_slot_time_t *time, NR_Sched_Rsp_t *rsp);
   void (*NR_PHY_config_req)(NR_PHY_Config_t *config_INFO);
   uint32_t CC_mask;
   uint16_t current_frame;

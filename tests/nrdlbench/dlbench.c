@@ -535,7 +535,7 @@ int main(int argc, char **argv)
     reset_sched_response(sched_rsp, frame, slot, 0, 0);
 
     clock_gettime(CLOCK_MONOTONIC, &ts0);
-    gNB_dlsch_ulsch_scheduler(0, 0, frame, slot, sched_rsp);
+    gNB_dlsch_ulsch_scheduler(0, 0, frame, slot, NULL, sched_rsp);
     clock_gettime(CLOCK_MONOTONIC, &ts1);
 
     /* Only measure and run PHY TX for DL slots */

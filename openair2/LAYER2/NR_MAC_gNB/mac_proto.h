@@ -51,7 +51,12 @@ void clear_nr_nfapi_information(nr_cell_sched_t *cell, frame_t frameP, slot_t sl
 
 void nr_mac_update_timers(gNB_MAC_INST *gNB, nr_cell_sched_t *cell);
 
-void gNB_dlsch_ulsch_scheduler(module_id_t module_idP, int cell_id, frame_t frame_rxP, slot_t slot_rxP, NR_Sched_Rsp_t *sched_info);
+void gNB_dlsch_ulsch_scheduler(module_id_t module_idP,
+                               int cell_id,
+                               frame_t frame_rxP,
+                               slot_t slot_rxP,
+                               const nr_slot_time_t *time,
+                               NR_Sched_Rsp_t *sched_info);
 
 /* \brief main DL scheduler function. Calls a preprocessor to decide on
  * resource allocation, then "post-processes" resource allocation (nFAPI

@@ -128,7 +128,12 @@ static void nr_fill_pusch_fapi_groups(nfapi_nr_ul_tti_request_t *UL_tti_req)
   }
 }
 
-void gNB_dlsch_ulsch_scheduler(module_id_t module_idP, const int cell_id, frame_t frame, slot_t slot, NR_Sched_Rsp_t *sched_info)
+void gNB_dlsch_ulsch_scheduler(module_id_t module_idP,
+                               const int cell_id,
+                               frame_t frame,
+                               slot_t slot,
+                               const nr_slot_time_t *time,
+                               NR_Sched_Rsp_t *sched_info)
 {
   protocol_ctxt_t ctxt = {0};
   PROTOCOL_CTXT_SET_BY_MODULE_ID(&ctxt, module_idP, ENB_FLAG_YES, NOT_A_RNTI, frame, slot,module_idP);
@@ -139,6 +144,8 @@ void gNB_dlsch_ulsch_scheduler(module_id_t module_idP, const int cell_id, frame_
   NR_ServingCellConfigCommon_t *scc = cc->ServingCellConfigCommon;
 
   NR_SCHED_LOCK(&gNB->sched_lock);
+  if (cc->sib9_si && cc->sib9_mode == NR_SIB9_REALTIME)
+    nr_sib9_slot(cell, frame, slot, time);
   int slots_frame = cell->frame_structure.numb_slots_frame;
   clear_beam_information(&cell->beam_info, frame, slot, slots_frame);
 

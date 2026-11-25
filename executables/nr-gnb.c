@@ -73,7 +73,8 @@ static void tx_func(processingData_L1tx_t *info)
   // to not overflow the stack while still having it in local (function) scope
   // also, tx_func() is only executed by one thread, serially
   static NR_Sched_Rsp_t sched_response;
-  ifi->NR_slot_indication(&ind, &sched_response);
+  const nr_slot_time_t time = {.rx_frame = frame_rx, .rx_slot = slot_rx, .tx_frame = frame_tx, .tx_slot = slot_tx};
+  ifi->NR_slot_indication(&ind, &time, &sched_response);
   stop_meas(&gNB->slot_indication_stats);
 
   info->gNB = gNB;

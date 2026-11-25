@@ -175,6 +175,7 @@ void f1_setup_response(const f1ap_setup_resp_t *resp)
     NR_SCHED_UNLOCK(&mac->sched_lock);
     return;
   }
+  cell->common_channels.sib9_window = (nr_sib9_window_t){0};
   bool update = result == NR_SI_PUBLISHED;
   /* only if we have to update SIB1, set mib and sib1 to non-NULL to indicate
    * in du_config_update that it has changed (otherwise, gNB-DU config update

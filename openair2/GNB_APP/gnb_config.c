@@ -2049,8 +2049,8 @@ void RCconfig_nr_macrlc(configmodule_interface_t *cfg)
     LOG_E(GNB_APP, "DU SIB9: %s\n", sib9_error);
     exit(EXIT_FAILURE);
   }
-  if (cc->sib9_mode == NR_SIB9_REALTIME) {
-    LOG_E(GNB_APP, "Realtime SIB9 scheduling is unavailable in this build\n");
+  if (cc->sib9_mode == NR_SIB9_REALTIME && NFAPI_MODE != NFAPI_MONOLITHIC) {
+    LOG_E(GNB_APP, "Realtime SIB9 requires the integrated L1 slot timing context\n");
     exit(EXIT_FAILURE);
   }
 

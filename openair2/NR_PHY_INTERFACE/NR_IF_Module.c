@@ -384,20 +384,21 @@ static void match_crc_rx_pdu(nfapi_nr_rx_data_indication_t *rx_ind, nfapi_nr_crc
   }
 }
 
-static void pnf_send_slot_ind(const nfapi_nr_slot_indication_scf_t *ind, NR_Sched_Rsp_t *rsp)
+static void pnf_send_slot_ind(const nfapi_nr_slot_indication_scf_t *ind, const nr_slot_time_t *time, NR_Sched_Rsp_t *rsp)
 {
+  (void)time;
   module_id_t module_id = 0;
   int phy_id = 0;
   reset_sched_response(rsp, ind->sfn, ind->slot, module_id, phy_id);
   handle_nr_slot_ind(ind->sfn, ind->slot, rsp);
 }
 
-static void run_scheduler_monolithic(const nfapi_nr_slot_indication_scf_t *ind, NR_Sched_Rsp_t *rsp)
+static void run_scheduler_monolithic(const nfapi_nr_slot_indication_scf_t *ind, const nr_slot_time_t *time, NR_Sched_Rsp_t *rsp)
 {
   module_id_t module_id = 0;
   int phy_id = ind->header.phy_id;
   reset_sched_response(rsp, ind->sfn, ind->slot, module_id, phy_id);
-  gNB_dlsch_ulsch_scheduler(rsp->module_id,phy_id, ind->sfn, ind->slot, rsp);
+  gNB_dlsch_ulsch_scheduler(rsp->module_id, phy_id, ind->sfn, ind->slot, time, rsp);
 }
 
 static void NR_UL_indication(NR_UL_IND_t *UL_info)

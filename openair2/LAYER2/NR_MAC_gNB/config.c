@@ -1195,6 +1195,7 @@ nr_si_result_t nr_mac_configure_other_sib(nr_cell_sched_t *cell, int count, cons
       sib9 = NULL;
     memcpy(cc->sib9_bcch_pdu, time_pdu, sizeof(time_pdu));
     cc->sib9_bcch_length = time_length;
+    cc->sib9_window = (nr_sib9_window_t){0};
   }
   ASN_STRUCT_FREE(asn_DEF_NR_BCCH_DL_SCH_Message, candidate);
   ASN_STRUCT_FREE(asn_DEF_NR_SystemInformation_IEs, regular);

@@ -268,17 +268,17 @@ int phy_nr_slot_indication(nfapi_nr_slot_indication_scf_t *ind)
   // also, phy_nr_slot_indication() is only executed by one thread, serially
   static NR_Sched_Rsp_t sched_response;
   NR_IF_Module_t *ifi = RC.nrmac[0]->if_inst;
-  ifi->NR_slot_indication(ind, &sched_response);
+  ifi->NR_slot_indication(ind, NULL, &sched_response);
 
-    // The scheduler does not stamp the cell identity onto the requests it produces,
-    // so carry it over from the indication that triggered this slot. Once the MAC
-    // sets it in reset_sched_response(), these four assignments can simply go away
-    // and the senders keep reading it off the message.
-    const uint8_t PHY_id = ind->header.phy_id;
-    sched_response.DL_req.header.phy_id = PHY_id;
-    sched_response.UL_tti_req.header.phy_id = PHY_id;
-    sched_response.TX_req.header.phy_id = PHY_id;
-    sched_response.UL_dci_req.header.phy_id = PHY_id;
+  // The scheduler does not stamp the cell identity onto the requests it produces,
+  // so carry it over from the indication that triggered this slot. Once the MAC
+  // sets it in reset_sched_response(), these four assignments can simply go away
+  // and the senders keep reading it off the message.
+  const uint8_t PHY_id = ind->header.phy_id;
+  sched_response.DL_req.header.phy_id = PHY_id;
+  sched_response.UL_tti_req.header.phy_id = PHY_id;
+  sched_response.TX_req.header.phy_id = PHY_id;
+  sched_response.UL_dci_req.header.phy_id = PHY_id;
 #ifdef ENABLE_AERIAL
 
     bool send_slt_resp = false;
